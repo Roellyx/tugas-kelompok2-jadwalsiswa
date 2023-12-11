@@ -1,0 +1,6 @@
+.navbar-pills li a:hover{
+    background-color: #2828be;
+}
+.content {
+    overflow-y: auto;
+  }
