@@ -2,6 +2,7 @@ import './sidebar.css'
 import 'bootstrap/js/dist/dropdown'
 import {Link} from 'react-router-dom'
 import Siswa from '../siswa'
+
 const Sidebar = () => {
   return (
     <>
@@ -19,6 +20,10 @@ const Sidebar = () => {
                         <li className="nav-item py-2 py-sm-0">
                             <Link to='/siswa' className="nav-link text-white active" aria-current="page">
                             <i className="fs-4 bi bi-person-lines-fill"></i><span className="fs-5 d-none d-sm-inline ms-2">Siswa</span></Link>
+                        </li>
+                        <li className="nav-item py-2 py-sm-0">
+                            <Link to='/kelas' className="nav-link text-white active" aria-current="page">
+                            <i className="fs-4 bi bi-person-lines-fill"></i><span className="fs-5 d-none d-sm-inline ms-2">Kelas</span></Link>
                         </li>
                         <li className="nav-item py-2 py-sm-0">
                             <a href="" className="nav-link text-white active" aria-current="page"><i className="fs-4 bi bi-journal-bookmark"></i><span className="fs-5 d-none d-sm-inline ms-2">Pelajaran</span></a>
