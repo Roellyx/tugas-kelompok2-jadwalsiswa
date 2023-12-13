@@ -2,11 +2,12 @@ import './sidebar.css'
 import 'bootstrap/js/dist/dropdown'
 import {Link} from 'react-router-dom'
 import Siswa from '../siswa'
+import Kelas from '../kelas'
 
 const Sidebar = () => {
   return (
     <>
-        <div className="samping bg-dark col-auto col-md-4 col-lg-3 min-vh-100  d-flex flex-column justify-content-between">
+        <div className="samping bg-dark col-auto col-md-4 col-lg-3 min-vh-100 d-flex flex-column justify-content-between rounded shadow-lg">
                 <div className="bg-dark p-2">
                     <a href="" className="d-flex text-decoration-none  mt-2 ms-3 align-items-center">
                         <span className="fs-4 d-none d-sm-inline text-white fw-bold">Sidebar</span>
@@ -15,21 +16,23 @@ const Sidebar = () => {
                     <ul className="nav navbar-pills flex-column mt-2">
                         <li className="nav-item py-2 py-sm-0">
                             <Link to='/' className="nav-link text-white active" aria-current="page">
-                           <i className="fs-4 bi bi-house-door-fill"></i><span className="fs-5 d-none d-sm-inline ms-2">Home</span></Link>
+                           <i className="fs-5 bi bi-house-door-fill"></i><span className="fs-6 d-none d-sm-inline ms-2">Home</span></Link>
                         </li>
                         <li className="nav-item py-2 py-sm-0">
                             <Link to='/siswa' className="nav-link text-white active" aria-current="page">
-                            <i className="fs-4 bi bi-person-lines-fill"></i><span className="fs-5 d-none d-sm-inline ms-2">Siswa</span></Link>
+                            <i className="fs-5 bi bi-person-lines-fill"></i><span className="fs-6 d-none d-sm-inline ms-2">Siswa</span></Link>
                         </li>
                         <li className="nav-item py-2 py-sm-0">
                             <Link to='/kelas' className="nav-link text-white active" aria-current="page">
-                            <i className="fs-4 bi bi-person-lines-fill"></i><span className="fs-5 d-none d-sm-inline ms-2">Kelas</span></Link>
+                            <i className="fs-5 bi bi-person-lines-fill"></i><span className="fs-6 d-none d-sm-inline ms-2">Kelas</span></Link>
                         </li>
                         <li className="nav-item py-2 py-sm-0">
-                            <a href="" className="nav-link text-white active" aria-current="page"><i className="fs-4 bi bi-journal-bookmark"></i><span className="fs-5 d-none d-sm-inline ms-2">Pelajaran</span></a>
+                            <a href="" className="nav-link text-white active" aria-current="page">
+                                <i className="fs-5 bi bi-journal-bookmark"></i><span className="fs-6 d-none d-sm-inline ms-2">Pelajaran</span></a>
                         </li>
                         <li className="nav-item py-2 py-sm-0">
-                            <a href="" className="nav-link text-white active" aria-current="page"><i className="fs-4 bi bi-calendar-week"></i><span className="fs-5 d-none d-sm-inline ms-2">Jadwal</span></a>
+                            <a href="" className="nav-link text-white active" aria-current="page">
+                                <i className="fs-5 bi bi-calendar-week"></i><span className="fs-6 d-none d-sm-inline ms-2">Jadwal</span></a>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +56,7 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className='ps-3 col content'>
-            <Siswa/>
+            <Kelas/>
         </div>
     </>
   )

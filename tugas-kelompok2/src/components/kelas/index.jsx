@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import 'bootstrap/js/dist/modal';
-import '../siswa/siswa.css';
+import '../kelas/kelas.css';
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
 
@@ -8,10 +8,12 @@ function Kelas() {
   //define state
   const [kelas, setKelas] = useState([]);
 
-  //update siswa
-  const [updateData, setUpdateData] = useState({
-    kelas:''
-  });
+  //create kelas
+  const [createData, setCreateData] = useState({kelas:''})
+
+  //update kelas
+  const [updateData, setUpdateData] = useState({kelas:''});
+
 
   const handleRowClick = (row) => {
     console.log('Data yang akan diedit:', row);
@@ -36,6 +38,45 @@ function Kelas() {
     }
   };
 
+  const handleCreate = async () => {
+    try {
+      console.log('Create Data:', createData);
+      // edit data berdasarkan id
+      await axios.post(`http://localhost:5240/api/Kelas/`, createData);
+      fetchData();
+      console.log('Data berhasil ditambah:', createData);
+
+      alert('Create data Berhasil');
+      window.location.reload();
+
+    } catch (error) {
+      console.error('Error creating data:', error);
+      alert('Create Data Gagal');
+    }
+  }
+
+
+  const handleDelete = async (row) => {
+    const deleteData = window.confirm(
+      "Apakah anda yakin ingin menghapus Data ini?"
+    );
+
+    if (deleteData) {
+      try {
+        await axios
+          .delete(`http://localhost:5240/api/Kelas/${row.id_kelas}`)
+          .then((response) => console.log(response));
+        fetchData();
+        alert("Delete Data Berhasil");
+        window.location.reload();
+
+      } catch (error) {
+        console.error("Error delete data", error);
+        alert("Delete Data Gagal");
+      }
+    }
+  };
+
   //useEffect hook
   useEffect(() => {
     //panggil method "fetchData"
@@ -51,19 +92,20 @@ function Kelas() {
     setKelas(data);
     console.log('Data Siswa dari Server:', data);
   };
+
   const columns = [
     {
-      name: 'Id Kelas',
-      selector: (row) => row.id_kelas,
+      name: <h6>No</h6>,
+      selector: (row, index) => index + 1,
       sortable: true,
     },
     {
-      name: 'Kelas',
+      name: <h6>Kelas</h6>,
       selector: (row) => row.kelas,
       sortable: true,
     },
     {
-      name: 'Action',
+      name: <h6>Action</h6>,
       cell: (row) => (
         <div className="action-buttons">
           <button
@@ -74,18 +116,31 @@ function Kelas() {
           >
             Edit
           </button>
-          <button className="delete-button">Delete</button>
+          <input 
+          type="text" 
+          className="form-control" 
+          value="" hidden/>
+          <button onClick={() => handleDelete(row)} className="delete-button">Delete</button>
         </div>
       ),
       width: '200px',
     },
   ];
+
+
   return (
-    <div className="card mt-4">
+    <div className="card mt-4 border-0 shadow-lg">
       <div className="container">
-        <div className="title text-center">Data Siswa</div>
         <div className="content">
-          <h2>Data Kelas</h2>
+          <h2 className='fw-bold my-3'>Data Kelas</h2>
+          <button
+            onClick={() => handleRowClick(row)}
+            className="tambah-button btn btn-primary mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#createModal">
+            Tambah Data
+          </button>
+
           <DataTable
             columns={columns}
             data={kelas}
@@ -105,7 +160,7 @@ function Kelas() {
             <div className="modal-content">
               <div className="modal-header">
                 <h1
-                  className="modal-title fs-5"
+                  className="modal-title fs-4"
                   id="exampleModalLabel"
                 >
                   Edit Kelas
@@ -119,21 +174,58 @@ function Kelas() {
               </div>
               <div className="modal-body">
                   <div className="mb-3">
-                    <label className="form-label">Kelas</label>
-                    <select
+                    <label className="form-label fs-5">Nama Kelas</label>
+                    <input
+                      type="text"
+                      className="form-control"
                       value={updateData.kelas}
                       onChange={(e) => setUpdateData({ ...updateData, kelas: e.target.value })}
-                      className="form-select"
-                    >
-                      <option value="kelas1">10 TKJ</option>
-                      <option value="kelas2">11 AKL</option>
-                      <option value="kelas3">12 TKRO</option>
-                    </select>
+                    />
                   </div>
-                  <button
-                    onClick={handleUpdate}
-                    className="btn btn-primary"
-                  >
+                  <button onClick={handleUpdate} className="btn btn-primary">
+                    Submit
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Modal Create Data */}
+        <div
+          className="modal fade"
+          id="createModal"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1
+                  className="modal-title fs-4"
+                  id="exampleModalLabel"
+                >
+                  Tambah Data Kelas
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                  <div className="mb-3">
+                    <label className="form-label fs-5">Nama Kelas</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={createData.kelas}
+                      onChange={(e) => setCreateData({ ...createData, kelas: e.target.value })}
+                    />
+                  </div>
+                  <button onClick={handleCreate} className="btn btn-primary">
                     Submit
                   </button>
               </div>

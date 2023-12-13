@@ -52,6 +52,7 @@ function Siswa() {
     setSiswa(data);
     console.log('Data Siswa dari Server:', data);
   };
+
   const columns = [
     {
       name: 'Nama',
@@ -81,12 +82,12 @@ function Siswa() {
       width: '200px',
     },
   ];
+  
   return (
-    <div className="card mt-4">
+    <div className="card mt-4 border-0 shadow rounded-3">
       <div className="container">
-        <div className="title text-center">Data Siswa</div>
         <div className="content">
-          <h2>Data Siswa</h2>
+          <h2 className='fw-bold my-3'>Data Siswa</h2>
           <DataTable
             columns={columns}
             data={siswa}
